@@ -1,0 +1,36 @@
+---
+groups:
+- name: main
+  jobs:
+  - job-test-deploy-app
+  - job-deploy-app
+resources:
+- name: Node-js-app
+  type: git
+  source:
+    uri: https://github.com/vc4017/cf-sample-app-nodejs.git
+    branch: master
+
+- name: cf-env
+  type: cf
+  source:
+    api: https://api.run.pivotal.io
+    username: tovenki.ch@gmail.com
+    password: Venki@521
+    organization: concourse-node.js app
+    space: deployment
+    skip_cert_check: true
+
+jobs:
+
+
+
+
+- name: job-deploy-app
+  serial: true
+  plan:
+  - {get: Node-js-app, trigger: true}
+  - put: cf-env
+    params:
+      manifest: Node-js-app/manifest.yml
+      path: Node-js-app

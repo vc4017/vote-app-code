@@ -1,0 +1,29 @@
+{
+  "name": "NodejsStarterApp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "cfenv": "1.0.x",
+    "express": "4.13.x",
+    "winston": "^2.3.0",
+	"body-parser": "^1.15.2",
+    "child_process": "^1.0.2",
+    "config.json": "0.0.4",
+    "express": "^4.10.2",
+    "http": "0.0.0",
+    "kue": "^0.11.1",
+    "mongodb": "^2.2.10",
+    "mongoose": "^4.6.2",
+    "mongoskin": "^2.1.0",
+    "redis": "^2.6.2",
+    "socket.io": "*",
+	"cfenv":"*"
+  },
+  "repository": {},
+  "engines": {
+    "node": "4.x"
+  }
+}

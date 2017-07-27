@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Voter App | Angular Demo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!-- Bootstrap is included in its original form, unaltered -->
+    <link rel="stylesheet" href="public/css/bootstrap.min.css">
+    <!-- Related styles of various icon packs and plugins -->
+    <link rel="stylesheet" href="pulic/css/plugins.css">
+    <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+    <link rel="stylesheet" href="public/css/main.css">
+    <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
+
+    <link rel="stylesheet" href="css/fonts.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</head>
+
+
+<!-- Page Wrapper -->
+<!-- In the PHP version you can set the following options from inc/config file -->
+<!--
+        Available classes:
+
+        'page-loading'      enables page preloader
+    -->
+
+<br>
+<br>
+<!-- Main Container -->
+<div id="main-container">
+    <!-- Header -->
+    <!-- In the PHP version you can set the following options from inc/config file -->
+    <!--
+                    Available header.navbar classes:
+
+                    'navbar-default'            for the default light header
+                    'navbar-inverse'            for an alternative dark header
+
+                    'navbar-fixed-top'          for a top fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar())
+                        'header-fixed-top'      has to be added on #page-container only if the class 'navbar-fixed-top' was added
+
+                    'navbar-fixed-bottom'       for a bottom fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar()))
+                        'header-fixed-bottom'   has to be added on #page-container only if the class 'navbar-fixed-bottom' was added
+                -->
+    <header class="navbar navbar-inverse navbar-fixed-top">
+        <!-- Left Header Navigation -->
+        <ul class="nav navbar-nav-custom">
+            <!-- Main Sidebar Toggle Button -->
+            <li>
+                <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');this.blur();">
+                    <img src="img/logo-white.png" class="img-responsive">
+                </a>
+            </li>
+            <!-- END Main Sidebar Toggle Button -->
+
+            <!-- Header Link -->
+
+            <!-- END Header Link -->
+        </ul>
+        <!-- END Left Header Navigation -->
+
+        <!-- Right Header Navigation -->
+        <ul class="nav navbar-nav-custom pull-right">
+            <!-- Search Form -->
+
+            <!-- END Search Form -->
+
+            <!-- Alternative Sidebar Toggle Button -->
+
+            <!-- END Alternative Sidebar Toggle Button -->
+
+            <!-- User Dropdown -->
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                    <h4 class="rightText whiteText topMargin12"><strong>Angular JS</strong> Voter App - <span class="strongText blueText">Sign Up</span></h4>
+                </a>
+    </header>
+    <!-- END Header -->
+
+    <!-- Page content -->
+    <div id="page-content" ng-app="myApp" ng-controller="myCtrl">
+        <!-- First Row -->
+        <br>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <!-- Horizontal Form Block -->
+                <div class="block">
+                    <!-- Horizontal Form Title -->
+                    <div class="block-title">
+                        <div class="block-options pull-right">
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default toggle-bordered enable-tooltip" data-toggle="button" title="Toggles .form-bordered class">Submit and Vote</a>
+                        </div>
+                        <h2 style="text-transform:none !important">Voter Registration Form</h2>
+                    </div>
+                    <!-- END Horizontal Form Title -->
+
+                    <!-- Horizontal Form Content -->
+
+                    <form method="post" class="form-horizontal form-bordered" name="userForm" ng-submit="submitForm()">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="example_text_input">Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" ng-model="user.voterName" name="example_text_input" class="form-control">
+                                <span class="help-block">Please enter your full name</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="example-hf-email">Email</label>
+                            <div class="col-sm-9">
+                                <input type="email" ng-model="user.voterEmail" required="required" name="example_hf_email" class="form-control">
+                                <span class="help-block">Please enter your email</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="example-hf-password">Organization</label>
+                            <div class="col-sm-9">
+                                <input type="text" ng-model="user.voterOrganization" required="required" name="example_hf_password" class="form-control">
+                                <span class="help-block">Please enter your organization</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Subscribe?</label>
+                            <div class="col-sm-9">
+                                <label class="switch switch-info"><input type="checkbox" checked ng-model="user.voterSubscribe"><span></span></label>
+                                <span class="help-block">Subscribe to Miracle's Email Lists?</span>
+                            </div>
+                        </div>
+                        <div class="form-group form-actions">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <a href="#"><button type="submit" class="btn btn-effect-ripple btn-primary strongText" ng-submit="submitForm()">Submit and Vote!</button></a>
+                            </div>
+                        </div>
+
+                    </form>
+                    <!-- END Horizontal Form Content -->
+                </div>
+            </div>
+            <div class="col-sm-3">
+            </div>
+            <!-- END Horizontal Form Block -->
+            <br>
+            <footer id="footer" class="fixed_footer">
+                <div class="container" style="padding-top:10px !important;margin-left:12px !important; margin-right:12px !important">
+                    <div class="row">
+                        <div class="col-sm-6 leftText blackText">
+                            <strong>&copy; 2016 <a target="new" href="http://www.miraclesoft.com" class="blueText" title="Copyright"> Miracle Software Systems, Inc. </strong></a>
+                        </div>
+                        <div class="col-sm-6 rightText blackText">
+                            Created by <strong>Miracle <span class="blueText">Innovation Labs</span></strong>
+                        </div>
+                    </div>
+                </div>
+
+            </footer>
+            <!-- END Page Content -->
+        </div>
+        <!-- END Main Container -->
+    </div>
+
+    <script src="js/jquery-2.2.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/readyDashboard.js"></script>
+    <script>
+        //ReadyDashboard.init();
+        var app = angular.module('myApp', []);
+
+        // Controller function and passing $http service and $scope var.
+        app.controller('myCtrl', function($scope, $http) {
+            // create a blank object to handle form data.
+            $scope.user = {};
+            $scope.registerVariable = "";
+            $scope.emailVariable = "";
+            // calling our submit function.
+            $scope.checkRegistered = function() {
+                if (localStorage.getItem("wow_registerstage") === null)
+                    return true;
+                else
+                    return false;
+            }
+
+            if (!$scope.checkRegistered()) {
+                window.location.href = '/vote';
+            }
+
+            $scope.storeData = function(key, value) {
+
+                localStorage.setItem(key, value);
+            }
+            $scope.submitForm = function() {
+                $scope.ujser = {};
+                $scope.storeData('wow_email', $scope.user.voterEmail);
+                $scope.storeData('wow_registerstage', 'true');
+                //if(angular.isUndefined($scope.user.voterSubscribe))
+                //$scope.user.voterSubscribe="false";
+
+                $http({
+                        method: 'POST',
+                        url: '/api/form/insert',
+                        data: $scope.user, //forms user object
+
+                    })
+                    .success(function(data) {
+                        window.location.href = '/vote';
+                    });
+
+            };
+        });
+    </script>
+
+    </body>
+
+</html>

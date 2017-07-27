@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Voter App | Angular Demo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!-- Bootstrap is included in its original form, unaltered -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Related styles of various icon packs and plugins -->
+    <link rel="stylesheet" href="css/plugins.css">
+    <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
+
+    <link rel="stylesheet" href="css/fonts.css">
+    <style>
+        .redText {
+            color: red
+        }
+
+        .show {
+            display: block;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .blur {
+            background-color: rgba(51, 51, 51, 0.5);
+            background-color: rgb(51, 51, 51);
+            opacity: 0.5;
+        }
+
+        .fa-check-circle {
+            color: black;
+            z-index: 5000;
+        }
+
+        .widget {
+            height: auto !important;
+        }
+
+        figcaption {
+            background-color: ;
+            padding: 30px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            color: #000
+        }
+
+        .show {
+            display: block;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .widget {
+            vertical-align: top;
+            opacity: 1;
+            transition: opacity .50s ease-in-out;
+            -moz-transition: opacity .50s ease-in-out;
+            -webkit-transition: opacity .50s ease-in-out;
+        }
+
+        .loader {
+            background: #000;
+            background: radial-gradient(#222, #000);
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+            position: fixed;
+            right: 0;
+            top: 0;
+            z-index: 99999;
+        }
+
+        .loader-inner {
+            bottom: 0;
+            height: 60px;
+            left: 0;
+            margin: auto;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100px;
+        }
+
+        .loader-line-wrap {
+            animation: spin 2000ms cubic-bezier(.175, .885, .32, 1.275) infinite;
+            box-sizing: border-box;
+            height: 50px;
+            left: 0;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            transform-origin: 50% 100%;
+            width: 100px;
+        }
+
+        .loader-line {
+            border: 4px solid transparent;
+            border-radius: 100%;
+            box-sizing: border-box;
+            height: 100px;
+            left: 0;
+            margin: 0 auto;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100px;
+        }
+
+        .loader-line-wrap:nth-child(1) {
+            animation-delay: -50ms;
+        }
+
+        .loader-line-wrap:nth-child(2) {
+            animation-delay: -100ms;
+        }
+
+        .loader-line-wrap:nth-child(3) {
+            animation-delay: -150ms;
+        }
+
+        .loader-line-wrap:nth-child(4) {
+            animation-delay: -200ms;
+        }
+
+        .loader-line-wrap:nth-child(5) {
+            animation-delay: -250ms;
+        }
+
+        .loader-line-wrap:nth-child(1) .loader-line {
+            border-color: hsl(0, 80%, 60%);
+            height: 90px;
+            width: 90px;
+            top: 7px;
+        }
+
+        .loader-line-wrap:nth-child(2) .loader-line {
+            border-color: hsl(60, 80%, 60%);
+            height: 76px;
+            width: 76px;
+            top: 14px;
+        }
+
+        .loader-line-wrap:nth-child(3) .loader-line {
+            border-color: hsl(120, 80%, 60%);
+            height: 62px;
+            width: 62px;
+            top: 21px;
+        }
+
+        .loader-line-wrap:nth-child(4) .loader-line {
+            border-color: hsl(180, 80%, 60%);
+            height: 48px;
+            width: 48px;
+            top: 28px;
+        }
+
+        .loader-line-wrap:nth-child(5) .loader-line {
+            border-color: hsl(240, 80%, 60%);
+            height: 34px;
+            width: 34px;
+            top: 35px;
+        }
+
+        @keyframes spin {
+            0%,
+            15% {
+                transform: rotate(0);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
+
+</head>
+
+<body>
+    <!-- preloader section start-->
+    <div id="preloader" class="show loader">
+        <div class="loader-inner">
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+        </div>
+    </div>
+    <!-- preloader section end -->
+
+    <br>
+    <br>
+    <!-- Main Container -->
+
+    <div id="main-container">
+        <!-- Header -->
+        <!-- In the PHP version you can set the following options from inc/config file -->
+        <!--
+                        Available header.navbar classes:
+
+                        'navbar-default'            for the default light header
+                        'navbar-inverse'            for an alternative dark header
+
+                        'navbar-fixed-top'          for a top fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar())
+                            'header-fixed-top'      has to be added on #page-container only if the class 'navbar-fixed-top' was added
+
+                        'navbar-fixed-bottom'       for a bottom fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar()))
+                            'header-fixed-bottom'   has to be added on #page-container only if the class 'navbar-fixed-bottom' was added
+                    -->
+        <header class="navbar navbar-inverse navbar-fixed-top">
+            <!-- Left Header Navigation -->
+            <ul class="nav navbar-nav-custom">
+                <!-- Main Sidebar Toggle Button -->
+                <li>
+                    <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');this.blur();">
+                        <img src="img/logo-white.png" class="img-responsive">
+                    </a>
+                </li>
+                <!-- END Main Sidebar Toggle Button -->
+
+                <!-- Header Link -->
+
+                <!-- END Header Link -->
+            </ul>
+            <!-- END Left Header Navigation -->
+
+            <!-- Right Header Navigation -->
+            <ul class="nav navbar-nav-custom pull-right">
+                <!-- Search Form -->
+
+                <!-- END Search Form -->
+
+                <!-- Alternative Sidebar Toggle Button -->
+
+                <!-- END Alternative Sidebar Toggle Button -->
+
+                <!-- User Dropdown -->
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                        <h4 class="rightText whiteText topMargin12"><strong>Angular JS</strong> Voter App</h4>
+                    </a>
+        </header>
+        <!-- END Header -->
+
+        <!-- Page content -->
+        <div id="page-content" ng-app="myApp" ng-controller="myCtrl">
+            <!-- modal to show voter already exist -->
+
+            <div id="myModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Voter Exists</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>We have seen that you have voted before on this topic and your vote has been updated here. You may change your vote at any time. </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Okay, got it!</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- modal end -->
+            <br>
+            <!-- registration form -->
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6" ng-show="registrationPage">
+                <!-- Horizontal Form Block -->
+                <div class="block">
+                    <!-- Horizontal Form Title -->
+                    <div class="block-title">
+                        <div class="block-options pull-right">
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default toggle-bordered enable-tooltip" data-toggle="button" title="Toggles .form-bordered class">Submit and Vote</a>
+                        </div>
+                        <h2 style="text-transform:none !important">Voter Registration Form</h2>
+                    </div>
+                    <!-- END Horizontal Form Title -->
+
+                    <!-- Horizontal Form Content -->
+
+                    <form method="post" class="form-horizontal form-bordered" name="userForm" ng-submit="submitForm()">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="example_text_input">Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" ng-model="user.voterName" required="required" name="example_text_input" class="form-control">
+                                <span class="help-block">Please enter your full name</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="example-hf-email">Email</label>
+                            <div class="col-sm-9">
+                                <input type="email" ng-model="user.voterEmail" required="required" name="example_hf_email" class="form-control">
+                                <span class="help-block">Please enter your email</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="example-hf-password">Organization</label>
+                            <div class="col-sm-9">
+                                <input type="text" ng-model="user.voterOrganization" required="required" name="example_hf_password" class="form-control">
+                                <span class="help-block">Please enter your organization</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Subscribe?</label>
+                            <div class="col-sm-9">
+                                <label class="switch switch-info"><input type="checkbox" checked ng-model="user.voterSubscribe"><span></span></label>
+                                <span class="help-block">Subscribe to Miracle's Email Lists?</span>
+                            </div>
+                        </div>
+                        <div class="centerText redText" ng-show="error">
+                            <h5>Oops! Looks like something went wrong, please try again</h5>
+                        </div>
+                        <div class="form-group form-actions">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <a href="#"><button type="submit" class="btn btn-effect-ripple btn-primary strongText" ng-submit="submitForm()">Submit and Vote!</button></a>
+                            </div>
+                        </div>
+
+
+                    </form>
+                    <!-- END Horizontal Form Content -->
+                </div>
+            </div>
+            <!-- registration form end -->
+            <div class="row" ng-show="votingPage">
+                <h4 class="strongText centerText">What is your organization's top area for investment in 2016?</h4>
+            </div>
+            <br>
+            <div class="row" ng-show="votingPage">
+                <!-- Simple User Widgets -->
+                <div class="col-sm-3">
+                    <a href="javascript:void(0)" class="widget">
+                        <div class="widget-content redBackground text-right clearfix">
+                            <center class="hide">
+                                <figure class="">
+                                    <figcaption>
+                                        <h3 id="toggleText"><i class="fa fa-2x fa-check-circle" aria-hidden="true"></i></h3>
+                                    </figcaption>
+                                </figure>
+                            </center>
+                            <h2 class="widget-heading centerText h3 text-light"><strong ng-click="vote($event)">Cognitive Computing</strong></h2>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="javascript:void(0)" class="widget">
+                        <div class="widget-content blueBackground text-right clearfix">
+                            <center class="hide">
+                                <figure class="">
+                                    <figcaption>
+                                        <h3 id="toggleText"><i class="fa fa-2x fa-check-circle" aria-hidden="true"></i></h3>
+                                    </figcaption>
+                                </figure>
+                            </center>
+                            <h2 class="widget-heading centerText h3 text-light"><strong ng-click="vote($event)">Data Integration</strong></h2>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="javascript:void(0)" class="widget">
+                        <div class="widget-content greenBackground text-right clearfix">
+                            <center class="hide">
+                                <figure class="">
+                                    <figcaption>
+                                        <h3 id="toggleText"><i class="fa fa-2x fa-check-circle" aria-hidden="true"></i></h3>
+                                    </figcaption>
+                                </figure>
+                            </center>
+                            <h2 class="widget-heading centerText h3 text-light"><strong ng-click="vote($event)">Business Intelligence</strong></h2>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="javascript:void(0)" class="widget">
+                        <div class="widget-content purpleBackground text-right clearfix">
+                            <center class="hide">
+                                <figure class="">
+                                    <figcaption>
+                                        <h3 id="toggleText"><i class="fa fa-2x fa-check-circle" aria-hidden="true"></i></h3>
+                                    </figcaption>
+                                </figure>
+                            </center>
+                            <h2 class="widget-heading centerText h3 text-light"><strong ng-click="vote($event)">Internet of Things</strong></h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!--selected option section -->
+            <div class="row" ng-bind-html="vote_value" ng-show="votingPage">
+            </div>
+            <!-- end selected option -->
+            <hr style="border-top: 1px solid #f9f9f9">
+            <div class="row" ng-show="votingPage">
+                <center>
+                    <button type="button" class="btn-lg btn-primary"><strong ng-click="checkResult()">Check out vote results!</strong></button>
+                </center>
+            </div>
+            <br>
+            <footer id="footer" class="fixed_footer">
+                <div class="container" style="padding-top:10px !important;margin-left:12px !important; margin-right:12px !important">
+                    <div class="row">
+                        <div class="col-sm-6 leftText blackText">
+                            <strong>&copy; 2016 <a target="new" href="http://www.miraclesoft.com" class="blueText" title="Copyright"> Miracle Software Systems, Inc. </strong></a>
+                        </div>
+                        <div class="col-sm-6 rightText blackText">
+                            Created by <strong>Miracle <span class="blueText">Innovation Labs</span></strong>
+                        </div>
+                    </div>
+                </div>
+
+            </footer>
+            <!-- END Page Content -->
+        </div>
+        <!-- END Main Container -->
+    </div>
+
+
+    <!-- jQuery, Bootstrap, jQuery plugins and Custom JS code -->
+    <script src="js/jquery-2.2.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+
+    <!-- Load and execute javascript code used only in this page -->
+    <script src="js/readyDashboard.js"></script>
+    <script>
+        var app = angular.module('myApp', ['ngSanitize']);
+
+        // Controller function and passing $http service and $scope var.
+        app.controller('myCtrl', function($scope, $http) {
+
+            $scope.email = "";
+            $scope.votingPage = false;
+            $scope.registrationPage = false;
+            $scope.vote_value = "";
+            $scope.user = {};
+            $scope.registerVariable = "";
+            $scope.emailVariable = "";
+            $scope.conferenceName="";
+
+            $http({
+                    method: 'GET',
+                    url: '/conferenceName',
+                  })
+                .success(function(data) {
+                  $scope.conferenceName=data;
+                  $scope.initialize();
+                });
+
+            /* function to show preloader */
+            $scope.show = function() {
+                $("#preloader").removeClass("hide");
+                $("#preloader").addClass("show");
+            }
+
+            /* function to hide preloader */
+            $scope.hide = function() {
+                //  alert("hiding")
+                $("#preloader").removeClass("show");
+                $("#preloader").addClass("hide");
+            }
+
+            /* function to store registration data in local storage */
+            $scope.storeRegistrationData = function(key, value) {
+
+                localStorage.setItem(key, value);
+            }
+
+            /* function call when form submit and post to redis queue*/
+            $scope.submitForm = function() {
+                $scope.show()
+
+                if (angular.isUndefined($scope.user.voterSubscribe))
+                    $scope.user.voterSubscribe = "false";
+
+                $http({
+                        method: 'POST',
+                        url: '/api/form/insert',
+                        data: $scope.user, //forms user object
+
+                    })
+                    .success(function(data) {
+                        $scope.hide();
+
+                        if (data.exist) {
+                            $scope.storeRegistrationData($scope.conferenceName+'_email', $scope.user.voterEmail);
+                            $scope.storeRegistrationData($scope.conferenceName+'_registerstage', 'true');
+                            $scope.storeData($scope.conferenceName+'_vote', data.exist);
+                            $("#myModal").modal('show'); //calling modal to show voting details already exist in database
+                            $scope.registrationPage = false;
+                            $scope.votingPage = true;
+                        } else if (data.result) {
+                            $scope.storeRegistrationData($scope.conferenceName+'_email', $scope.user.voterEmail);
+                            $scope.storeRegistrationData($scope.conferenceName+'_registerstage', 'true');
+                            $scope.registrationPage = false;
+                            $scope.votingPage = true;
+                            $scope.getVote();
+                        } else
+                            $scope.error = "true";
+                    });
+
+            };
+
+            /* function to check user registered for conference or not */
+            $scope.checkRegistered = function() {
+                if (localStorage.getItem($scope.conferenceName+"_registerstage") === null)
+                    return true;
+                else
+                    return false;
+            }
+
+
+            /* function to get voting  data from database */
+            $scope.getVote = function() {
+                voteValue = localStorage.getItem($scope.conferenceName+"_vote");
+
+                if (!(voteValue === null)) {
+                    $("#myModal").modal('show');
+                    $(".widget-content").each(function() {
+                        if ($(this).find("strong").html() == voteValue) {
+                            $(this).addClass('blur');
+                            $(this).find("center").removeClass('hide')
+                            $(this).find("center").addClass('show');
+                        }
+                        $scope.storeData($scope.conferenceName+'_vote', voteValue);
+                    })
+                } else
+                    $scope.getData();
+            }
+
+            $scope.getData = function() {
+                //  alert('calling'+localStorage.getItem("`wow`_email"))
+                $scope.show();
+                $scope.email = localStorage.getItem($scope.conferenceName+"_email");
+
+                $http({
+                        method: 'GET',
+                        url: '/api/retrieveById',
+                        params: {
+                            'voterEmail': $scope.email
+                        } //forms user object
+
+                    })
+                    .success(function(data) {
+                        $scope.hide();
+                        if (!data.error) {
+                            if (data.result.vote != null) {
+                                $("#myModal").modal('show');
+                                $scope.storeData($scope.conferenceName+'_vote', data.result.vote);
+                            }
+
+                            $(".widget-content").each(function() {
+                                if ($(this).find("strong").html() == data.result.vote) {
+                                    $(this).addClass('blur');
+                                    $(this).find("center").removeClass('hide')
+                                    $(this).find("center").addClass('show');
+                                }
+
+                            })
+                            $scope.vote_value = '<h4 class="strongText centerText">You have selected : <span class="blueText">' + data.result.vote + '</span></h4>';
+                            // $scope.storeData('wow_vote',data.result.vote);
+                        }
+                    });
+
+            };
+
+            /* function to store vote details locally */
+            $scope.storeData = function(key, value) {
+
+                $(".widget-content").each(function() {
+                    if ($(this).find("strong").html() == value) {
+                        $(this).addClass('blur');
+                        $(this).find("center").removeClass('hide')
+                        $(this).find("center").addClass('show');
+                    }
+                })
+                localStorage.setItem(key, value);
+                if (value != null)
+                    $scope.vote_value = '<h4 class="strongText centerText">You have selected : <span class="blueText">' + value + '</span></h4>';
+                $scope.storeToDb(value);
+
+            }
+
+            /* function to store vote details in database */
+            $scope.storeToDb = function(value) {
+                $scope.email = localStorage.getItem($scope.conferenceName+'_email');
+                $scope.show()
+                $http({
+                        method: 'POST',
+                        url: '/api/insert',
+                        data: {
+                            'voterEmail': $scope.email,
+                            'vote': value
+                        }, //forms user object
+
+                    })
+                    .success(function(data) {
+                        $scope.hide();
+                        if (!data.result) {
+                            $scope.vote_value = 'Oops! Looks like your vote was not submitted, please try again';
+                        }
+                    });
+            };
+
+            $scope.vote = function(e) {
+
+                /* adding active class to selected option */
+                $(".widget-content").each(function() {
+                    $(this).removeClass('blur');
+                    $(this).find("center").removeClass('show');
+                    $(this).find("center").addClass('hide');
+                });
+                $(e.target).parent().parent().addClass('blur');
+                $(e.target).parent().parent().children().removeClass('hide')
+                $(e.target).parent().parent().children().find("center").addClass('show');
+
+                $scope.storeData($scope.conferenceName+'_vote', e.target.innerHTML);
+
+            }
+
+            /* function to redirect to result page */
+            $scope.checkResult = function() {
+                window.location.href = '/results';
+            }
+
+            /* function to redirect to form page if user not registered*/
+            $scope.initialize=function(){
+            if ($scope.checkRegistered()) {
+                $scope.registrationPage = true;
+                $scope.votingPage = false;
+                $scope.hide()
+            } else {
+                $scope.registrationPage = false;
+                $scope.votingPage = true;
+                $scope.hide();
+                $scope.getVote();
+            }
+          };
+            $(function() {
+                ReadyDashboard.init();
+            });
+        });
+    </script>
+</body>
+
+</html>

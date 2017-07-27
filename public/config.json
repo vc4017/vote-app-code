@@ -1,0 +1,16 @@
+{
+  "conferenceName":"testing",
+  "votes":[
+    {"vote":"Cognitive Computing"},
+    {"vote":"Data Integration"},
+    {"vote":"Business Intelligence"},
+    {"vote":"Internet of Things"}
+  ],
+  "redis": {
+	"uri":"redis://localhost:6379"
+  },
+  "mongodb":{
+    "uri":"mongodb://localhost:27017/testingapcloud",
+    "collectionName":"votingcollectionnews"
+  }
+}

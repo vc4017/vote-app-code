@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Results App | Angular Demo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+    <!-- Stylesheets -->
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!-- Bootstrap is included in its original form, unaltered -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Related styles of various icon packs and plugins -->
+    <link rel="stylesheet" href="css/plugins.css">
+    <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script type="text/javascript" src="js/jquery.easypiechart.js"></script>
+    <link rel="stylesheet" href="css/fonts.css">
+    <style>
+        .show {
+            display: block;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .loader {
+            background: #000;
+            background: radial-gradient(#222, #000);
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+            position: fixed;
+            right: 0;
+            top: 0;
+            z-index: 99999;
+        }
+
+        .loader-inner {
+            bottom: 0;
+            height: 60px;
+            left: 0;
+            margin: auto;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100px;
+        }
+
+        .loader-line-wrap {
+            animation: spin 2000ms cubic-bezier(.175, .885, .32, 1.275) infinite;
+            box-sizing: border-box;
+            height: 50px;
+            left: 0;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            transform-origin: 50% 100%;
+            width: 100px;
+        }
+
+        .loader-line {
+            border: 4px solid transparent;
+            border-radius: 100%;
+            box-sizing: border-box;
+            height: 100px;
+            left: 0;
+            margin: 0 auto;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100px;
+        }
+
+        .loader-line-wrap:nth-child(1) {
+            animation-delay: -50ms;
+        }
+
+        .loader-line-wrap:nth-child(2) {
+            animation-delay: -100ms;
+        }
+
+        .loader-line-wrap:nth-child(3) {
+            animation-delay: -150ms;
+        }
+
+        .loader-line-wrap:nth-child(4) {
+            animation-delay: -200ms;
+        }
+
+        .loader-line-wrap:nth-child(5) {
+            animation-delay: -250ms;
+        }
+
+        .loader-line-wrap:nth-child(1) .loader-line {
+            border-color: hsl(0, 80%, 60%);
+            height: 90px;
+            width: 90px;
+            top: 7px;
+        }
+
+        .loader-line-wrap:nth-child(2) .loader-line {
+            border-color: hsl(60, 80%, 60%);
+            height: 76px;
+            width: 76px;
+            top: 14px;
+        }
+
+        .loader-line-wrap:nth-child(3) .loader-line {
+            border-color: hsl(120, 80%, 60%);
+            height: 62px;
+            width: 62px;
+            top: 21px;
+        }
+
+        .loader-line-wrap:nth-child(4) .loader-line {
+            border-color: hsl(180, 80%, 60%);
+            height: 48px;
+            width: 48px;
+            top: 28px;
+        }
+
+        .loader-line-wrap:nth-child(5) .loader-line {
+            border-color: hsl(240, 80%, 60%);
+            height: 34px;
+            width: 34px;
+            top: 35px;
+        }
+
+        @keyframes spin {
+            0%,
+            15% {
+                transform: rotate(0);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.chart1').easyPieChart({
+                //your configuration goes here
+                barColor: 'black',
+                trackColor: 'white',
+                scaleColor: 'white',
+                lineWidth: '7',
+                animate: 500
+            });
+            $('.chart2').easyPieChart({
+                //your configuration goes here
+                barColor: 'black',
+                trackColor: 'white',
+                scaleColor: 'white',
+                lineWidth: '7',
+                animate: 500
+            });
+            $('.chart3').easyPieChart({
+                //your configuration goes here
+                barColor: 'black',
+                trackColor: 'white',
+                scaleColor: 'white',
+                lineWidth: '7',
+                animate: 500
+
+            });
+            $('.chart4').easyPieChart({
+                //your configuration goes here
+                barColor: 'black',
+                trackColor: 'white',
+                scaleColor: 'white',
+                lineWidth: '7',
+                animate: 500
+
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="preloader" class="show loader">
+        <div class="loader-inner">
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Wrapper -->
+    <!-- In the PHP version you can set the following options from inc/config file -->
+    <!--
+            Available classes:
+
+            'page-loading'      enables page preloader
+        -->
+
+    <br>
+    <br>
+    <!-- Main Container -->
+    <div id="main-container">
+        <!-- Header -->
+        <!-- In the PHP version you can set the following options from inc/config file -->
+        <!--
+                        Available header.navbar classes:
+
+                        'navbar-default'            for the default light header
+                        'navbar-inverse'            for an alternative dark header
+
+                        'navbar-fixed-top'          for a top fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar())
+                            'header-fixed-top'      has to be added on #page-container only if the class 'navbar-fixed-top' was added
+
+                        'navbar-fixed-bottom'       for a bottom fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar()))
+                            'header-fixed-bottom'   has to be added on #page-container only if the class 'navbar-fixed-bottom' was added
+                    -->
+        <header class="navbar navbar-inverse navbar-fixed-top">
+            <!-- Left Header Navigation -->
+            <ul class="nav navbar-nav-custom">
+                <!-- Main Sidebar Toggle Button -->
+                <li>
+                    <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');this.blur();">
+                        <img src="img/logo-white.png" class="img-responsive">
+                    </a>
+                </li>
+                <!-- END Main Sidebar Toggle Button -->
+
+                <!-- Header Link -->
+
+                <!-- END Header Link -->
+            </ul>
+            <!-- END Left Header Navigation -->
+
+            <!-- Right Header Navigation -->
+            <ul class="nav navbar-nav-custom pull-right">
+                <!-- Search Form -->
+
+                <!-- END Search Form -->
+
+                <!-- Alternative Sidebar Toggle Button -->
+
+                <!-- END Alternative Sidebar Toggle Button -->
+
+                <!-- User Dropdown -->
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                        <h4 class="rightText whiteText topMargin12"><strong>Angular JS</strong> Voter App</h4>
+                    </a>
+        </header>
+        <!-- END Header -->
+
+        <!-- Page content -->
+        <div id="my" ng-app="myApp" ng-controller="myCtrl">
+            <!-- First Row -->
+            <div id="myModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Oops! Something went wrong</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Want to try again ??</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="retry()">Retry!</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="okay()">Okay</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <h3 class="strongText centerText">What is your organization's top area for investment in 2016?</h3>
+            </div>
+            <br>
+            <div class="row container">
+                <!-- Simple User Widgets -->
+                <div class="col-sm-3">
+                    <a href="javascript:void(0)" class="widget">
+                        <div class="widget-content paddingTop20 paddingBottom20 redBackground text-right clearfix">
+                            <h2 class="widget-heading expandedLineHeight h3 centerText text-light bottomMargin25"><strong>{{Data[0]}}</strong></h2>
+                            <center>
+                                <div class="chart1 strongText whiteText" data-percent="10" style="font-size:20px">{{ vote[0] }}%</div>
+                            </center>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="javascript:void(0)" class="widget">
+                        <div class="widget-content paddingTop20 paddingBottom20 blueBackground text-right clearfix">
+                            <h2 class="widget-heading expandedLineHeight h3 centerText text-light bottomMargin25"><strong>{{Data[1]}}</strong></h2>
+                            <center>
+                                <div class="chart2 strongText whiteText" data-percent="{{ vote2 }}" style="font-size:20px">{{ vote[1] }}%</div>
+                            </center>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="javascript:void(0)" class="widget">
+                        <div class="widget-content paddingTop20 paddingBottom20 greenBackground text-right clearfix">
+                            <h2 class="widget-heading expandedLineHeight h3 centerText text-light bottomMargin25"><strong>{{Data[2]}}</strong></h2>
+                            <center>
+                                <div class="chart3 strongText whiteText" data-percent="{{ vote3 }}" style="font-size:20px">{{ vote[2] }}%</div>
+                            </center>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="javascript:void(0)" class="widget">
+                        <div class="widget-content paddingTop20 paddingBottom20 purpleBackground text-right clearfix">
+                            <h2 class="widget-heading expandedLineHeight h3 centerText text-light bottomMargin25"><strong>{{Data[3]}}</strong></h2>
+                            <center>
+                                <div class="chart4 strongText whiteText" data-percent="{{ vote4 }}" style="font-size:20px">{{ vote[3] }}%</div>
+                            </center>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <hr style="border-top: 1px solid #f9f9f9">
+            <div class="row" ng-show="error">
+                <h4 class="strongText centerText">  Sorry page is not live and data was not fetched.</h4>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <center>
+                        <button type="button" class="btn-lg btn-primary"><strong>Vote at miraclesoft.com/voteapp and win an iPhone!</strong></button>
+                    </center>
+                </div>
+            </div>
+
+            <br>
+            <footer id="footer" class="fixed_footer">
+                <div class="container" style="padding-top:10px !important;margin-left:12px !important; margin-right:12px !important">
+                    <div class="row">
+                        <div class="col-sm-6 leftText blackText">
+                            <strong>&copy; 2016 <a target="new" href="http://www.miraclesoft.com" class="blueText" title="Copyright"> Miracle Software Systems, Inc. </strong></a>
+                        </div>
+                        <div class="col-sm-6 rightText blackText">
+                            Created by <strong>Miracle <span class="blueText">Innovation Labs</span></strong>
+                        </div>
+                    </div>
+                </div>
+
+            </footer>
+            <!-- END Page Content -->
+        </div>
+        <!-- END Main Container -->
+    </div>
+
+
+    <!-- jQuery, Bootstrap, jQuery plugins and Custom JS code -->
+    <script src="js/jquery-2.2.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <!-- Load and execute javascript code used only in this page -->
+    <script src="js/uiWidgets.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope, $http) {
+
+            $scope.Data = ["Cognitive computing", "Data Integration", "Business Intelligence", "Internet of Things"];
+            $scope.vote = [0, 0, 0, 0];
+            $scope.show = function() {
+                //  alert("showing")
+                $("#preloader").removeClass("hide");
+                $("#preloader").addClass("show");
+            }
+            $scope.hide = function() {
+                //  alert("hiding")
+                $("#preloader").removeClass("show");
+                $("#preloader").addClass("hide");
+            }
+            $scope.retry = function() {
+                $scope.show();
+                $scope.checkDataExist();
+            }
+            $scope.okay = function() {
+                $scope.error = true
+            }
+
+            $scope.checkDataExist = function() {
+
+                $http({
+                        method: 'GET',
+                        url: '/api/retrieve',
+
+
+                    })
+                    .success(function(data) {
+                        if (!data.error)
+                            $scope.hide()
+                        else {
+                            $("#myModal").modal('show');
+                        }
+                    });
+
+            };
+            $(function() {
+                var scope = angular.element(document.querySelector('#my')).scope();
+                scope.checkDataExist()
+                var socket = io();
+                socket.on('result', function(msg) {
+					
+                    for (i = 0; i < msg.result.length; i++) {
+                        var classname = ".chart" + eval(i + 1);
+                        $(classname).data('easyPieChart').update(msg.result[i].result);
+                        scope.$apply(function() {
+                            scope.vote[i] = (msg.result[i].result)
+                        });
+
+                    }
+
+                });
+
+                UiWidgets.init();
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
