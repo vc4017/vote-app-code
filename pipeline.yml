@@ -2,13 +2,12 @@
 groups:
 - name: main
   jobs:
-  - job-test-deploy-app
   - job-deploy-app
 resources:
 - name: Node-js-app
   type: git
   source:
-    uri: https://github.com/vc4017/vote-app-code.git
+    uri: 	https://github.com/vc4017/vote-app-code.git
     branch: master
 
 - name: cf-env
