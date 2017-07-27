@@ -8,7 +8,7 @@ resources:
 - name: Node-js-app
   type: git
   source:
-    uri: https://github.com/vc4017/cf-sample-app-nodejs.git
+    uri: https://github.com/vc4017/vote-app-code.git
     branch: master
 
 - name: cf-env
